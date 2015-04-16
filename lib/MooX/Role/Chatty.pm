@@ -11,7 +11,6 @@ our($VERSION) = '1.00';
 
 use Scalar::Util;
 use Type::Tiny::Duck;
-use Log::Any::Adapter::Util;
 
 use Moo::Role 2;
 
