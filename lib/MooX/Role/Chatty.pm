@@ -7,7 +7,7 @@ use warnings;
 
 package MooX::Role::Chatty;
 
-our($VERSION) = '1.00';
+our($VERSION) = '1.01';
 
 use Scalar::Util;
 use Type::Tiny::Duck;
@@ -326,7 +326,7 @@ Are there, for certain, but have yet to be cataloged.
 
 =head1 VERSION
 
-version 1.00
+version 1.01
 
 =head1 AUTHOR
 
