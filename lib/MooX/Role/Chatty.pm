@@ -195,7 +195,7 @@ you can call any of the logging methods it supports.
 
 L<MooX::Role::Chatty> tries to make the common cases easy.  To that
 end, you don't need to worry about setting up L</logger> if you don't
-want to.  IF you haven't explicitly set this attribute, the first time
+want to.  If you haven't explicitly set this attribute, the first time
 you need it (by calling L</logger> or L</remark>) a default logger
 will be instantiated for you.  This logger is a L<Log::Any::Proxy>, so
 you can call any of the methods supported by L<Log::Any> to generate
@@ -211,7 +211,7 @@ them via C<$SIG{__WARN__}> if you want.
 The L</verbose> attribute determines the level of logging: a
 level of C<1> corresponds to a log level of C<notice>, C<2> to
 C<info>, and so on.  Although less common, you can also go the other
-way: C<-1> corresponds to C<warn>, C<-2> to <error>, etc.  A
+way: C<-1> corresponds to C<warn>, C<-2> to C<error>, etc.  A
 L</verbose> level of 0 is special: it suppresses any output from
 L</remark>, and of the L<Log::Any> levels only C<emergency> will
 produce output.
@@ -229,7 +229,7 @@ object that responds to C<info> and C<warn> methods.  Most of the more
 established Perl logging packages fill the bill, like L<Log::Dispatch>
 or L<Log::Log4perl>, in addition to L<Log::Any>.  For that matter, if
 you like the behavior of L<Log::Any> but want output from your module
-to be different from F<MooX::Role::Chartty> logging elsewhere in your
+to be different from L<MooX::Role::Chatty> logging elsewhere in your
 application, you can use an instance of an adapter class directly.
 Again, if you set L</logger> directly, it's your responsibility to
 update the logger's behavior as appropriate if you reset L</verbose>.
@@ -249,6 +249,7 @@ L</verbose> settings, see L</MANAGING LOGGERS>.
 Defaults to C<0>, and can be updated.
 
 =item logger
+
 =item get_logger
 
 The logging engine to be used for output.
@@ -291,8 +292,8 @@ two rules below).
 B<Note:> It's important, but sometimes confusing, to keep in mind the
 difference between the target verbosity level (which is what C<level>
 specifies), and the actual call to the logger, which is always at the
-C<notice> (or C<info>) log level.  In other words, saying C<<level =>
--3>> does NOT get you a call to C<critical>.
+C<notice> (or C<info>) log level.  In other words, saying C<< level =>
+-3 >> does NOT get you a call to C<critical>.
 
 =item *
 

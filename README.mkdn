@@ -60,7 +60,7 @@ you can call any of the logging methods it supports.
 
 [MooX::Role::Chatty](https://metacpan.org/pod/MooX::Role::Chatty) tries to make the common cases easy.  To that
 end, you don't need to worry about setting up ["logger"](#logger) if you don't
-want to.  IF you haven't explicitly set this attribute, the first time
+want to.  If you haven't explicitly set this attribute, the first time
 you need it (by calling ["logger"](#logger) or ["remark"](#remark)) a default logger
 will be instantiated for you.  This logger is a [Log::Any::Proxy](https://metacpan.org/pod/Log::Any::Proxy), so
 you can call any of the methods supported by [Log::Any](https://metacpan.org/pod/Log::Any) to generate
@@ -76,7 +76,7 @@ them via `$SIG{__WARN__}` if you want.
 The ["verbose"](#verbose) attribute determines the level of logging: a
 level of `1` corresponds to a log level of `notice`, `2` to
 `info`, and so on.  Although less common, you can also go the other
-way: `-1` corresponds to `warn`, `-2` to <error>, etc.  A
+way: `-1` corresponds to `warn`, `-2` to `error`, etc.  A
 ["verbose"](#verbose) level of 0 is special: it suppresses any output from
 ["remark"](#remark), and of the [Log::Any](https://metacpan.org/pod/Log::Any) levels only `emergency` will
 produce output.
@@ -94,7 +94,7 @@ object that responds to `info` and `warn` methods.  Most of the more
 established Perl logging packages fill the bill, like [Log::Dispatch](https://metacpan.org/pod/Log::Dispatch)
 or [Log::Log4perl](https://metacpan.org/pod/Log::Log4perl), in addition to [Log::Any](https://metacpan.org/pod/Log::Any).  For that matter, if
 you like the behavior of [Log::Any](https://metacpan.org/pod/Log::Any) but want output from your module
-to be different from `MooX::Role::Chartty` logging elsewhere in your
+to be different from [MooX::Role::Chatty](https://metacpan.org/pod/MooX::Role::Chatty) logging elsewhere in your
 application, you can use an instance of an adapter class directly.
 Again, if you set ["logger"](#logger) directly, it's your responsibility to
 update the logger's behavior as appropriate if you reset ["verbose"](#verbose).
@@ -112,7 +112,7 @@ update the logger's behavior as appropriate if you reset ["verbose"](#verbose).
     Defaults to `0`, and can be updated.
 
 - logger
-=item get\_logger
+- get\_logger
 
     The logging engine to be used for output.
 
@@ -146,8 +146,8 @@ In addition to the attribute accessors, one method is provided:
         **Note:** It's important, but sometimes confusing, to keep in mind the
         difference between the target verbosity level (which is what `level`
         specifies), and the actual call to the logger, which is always at the
-        `notice` (or `info`) log level.  In other words, saying `<level =`
-        \-3>> does NOT get you a call to `critical`.
+        `notice` (or `info`) log level.  In other words, saying `level =>
+        \-3` does NOT get you a call to `critical`.
 
     - If _$info_ is a simple scalar, use it as the log message.
     - If _$info_ is an array reference, use the contents as arguments to
