@@ -1,7 +1,6 @@
 #!perl
 #
 
-use 5.010;
 use strict;
 use warnings;
 
@@ -14,33 +13,44 @@ use Type::Tiny::Duck;
 
 use Moo::Role 2;
 
-sub _prefix_message {
-  my($category,$level,$message) = @_;
-  my ( $sec, $min, $hr, $mday, $mon, $yr ) = localtime;
-  state $months = [qw( Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec )];
-  $yr += 1900;
-  $mon = $months->[$mon];
-  $message = '' unless defined $message;
-  my @lines = split /\n/, $message;
+{
+  my $months = [qw( Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec )];
+
+  sub _prefix_message {
+    my($category,$level,$message) = @_;
+    my ( $sec, $min, $hr, $mday, $mon, $yr ) = localtime;
+    $yr += 1900;
+    $mon = $months->[$mon];
+    $message = '' unless defined $message;
+    my @lines = split /\n/, $message;
   
-  return join ("\n",
-	       map { sprintf '%04d-% 3s-%02d %02d:%02d:%02d :: %s',
-		       $yr, $mon, $mday, $hr, $min, $sec, $_  } @lines);  
+    return join ("\n",
+		 map { sprintf '%04d-% 3s-%02d %02d:%02d:%02d :: %s',
+			 $yr, $mon, $mday, $hr, $min, $sec, $_  } @lines);  
+  }
+
 }
 
 has 'verbose' => ( is => 'rw', isa => sub { shift =~ /^\d+$/; },
 		   default => 0, trigger => 1 );
 
-sub _verbose_to_log_level {
-  my $self = shift;
-  my $verbose = $self->verbose;
 
-  return 0 unless $verbose;
-  
-  require Log::Any::Adapter::Util;
-  state $base_level = Log::Any::Adapter::Util::numeric_level('notice');
+{
+  my $base_level;
 
-  return $verbose + $base_level - !!($verbose > 0);
+  sub _verbose_to_log_level {
+    my $self = shift;
+    my $verbose = $self->verbose;
+
+    return 0 unless $verbose;
+
+    unless (defined $base_level) {
+      require Log::Any::Adapter::Util;
+      $base_level = Log::Any::Adapter::Util::numeric_level('notice');
+    }
+
+    return $verbose + $base_level - !!($verbose > 0);
+  }
 }
 
 sub _trigger_verbose {
